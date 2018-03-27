@@ -147,7 +147,7 @@ namespace CentralPlanningConsoleApp
                 Requires requirememt = requirements.First<Requires>();
                 requirements.RemoveAt(0);
                 foreach(Satisfies satisfier in satisfiers) {
-                    if (satisfier.Material.Equals(requirememt))
+                    if (satisfier.Material.Equals(requirememt) && satisfier.YetUnrequiredQuantity > 0.0)
                     {
 
                     }

@@ -26,6 +26,7 @@ namespace CentralPlanningConsoleApp
 
         public IList<RequiredAndSatisfied> RequiredAndSatisfieds { get => requiredAndSatisfieds; }
         public int Time { get; set; }
+        public double YetUnrequiredQuantity { get; set; }
 
         private Material material;
 
