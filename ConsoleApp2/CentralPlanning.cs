@@ -21,6 +21,7 @@ namespace CentralPlanningConsoleApp
      * - customer/supplier and material2...-relations?
      * - ???
      * - fix git
+     * - fix git 2
      */
 
     class CentralPlanning
