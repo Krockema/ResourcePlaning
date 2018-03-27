@@ -28,7 +28,10 @@ namespace CentralPlanningConsoleApp
         public IList<RequiredAndSatisfied> RequiredAndSatisfieds { get => requiredAndSatisfieds; }
 
         public BOMPosition BOMPosition { get => bOMPosition; }
+
         public int Time { get => time; set => time = value; }
+
+        public double NotYetSatisfiedQuantity { get; set; }
 
         private ProductionOrder productionOrder;
 

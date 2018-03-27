@@ -31,7 +31,9 @@ namespace CentralPlanningConsoleApp
 
         public IList<RequiredAndSatisfied> RequiredAndSatisfieds => satisfier.RequiredAndSatisfieds;
 
-        public double YetUnrequiredQuantity { get; set; }
+        public double NotYetRequiredQuantity { get; set; }
+
+        public double NotYetSatisfiedQuantity { get; set; }
 
         public int Time { get => time; set => time = value; }
 

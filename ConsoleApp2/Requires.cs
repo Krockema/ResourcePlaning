@@ -9,5 +9,9 @@ namespace CentralPlanningConsoleApp
     interface Requires
     {
         IList<RequiredAndSatisfied> RequiredAndSatisfieds { get; }
+
+        Material Material { get; }
+
+        double NotYetSatisfiedQuantity { get; set; }
     }
 }

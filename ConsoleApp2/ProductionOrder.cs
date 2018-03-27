@@ -25,8 +25,10 @@ namespace CentralPlanningConsoleApp
         public IList<ProductionOrderOperation> ProductionOrderOperations { get => productionOrderOperations; set => productionOrderOperations = value; }
 
         public IList<RequiredAndSatisfied> RequiredAndSatisfieds { get => requiredAndSatisfieds; }
+        
         public int Time { get; set; }
-        public double YetUnrequiredQuantity { get; set; }
+
+        public double NotYetRequiredQuantity { get; set; }
 
         private Material material;
 

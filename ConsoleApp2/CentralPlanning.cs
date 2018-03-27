@@ -146,12 +146,22 @@ namespace CentralPlanningConsoleApp
         {
             while (requirements.Count > 0)
             {
-                Requires requirememt = requirements.First<Requires>();
-                requirements.RemoveAt(0);
+                Requires requirement = requirements.First<Requires>();
+                requirements.RemoveAt(0); // TODO get and remove first in one operation/method?
                 foreach(Satisfies satisfier in satisfiers) {
-                    if (satisfier.Material.Equals(requirememt) && satisfier.YetUnrequiredQuantity > 0.0)
+                    if (satisfier.Material.Equals(requirememt.Material) && satisfier.NotYetRequiredQuantity > 0.0)
                     {
+                        if (requirement.NotYetSatisfiedQuantity > satisfier.NotYetRequiredQuantity)
+                        {
 
+                        }
+                        else if (requirement.NotYetSatisfiedQuantity < satisfier.NotYetRequiredQuantity)
+                        {
+
+                        }
+                        else
+                        {
+                        }
                     }
                 }
 

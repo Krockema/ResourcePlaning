@@ -15,6 +15,6 @@ namespace CentralPlanningConsoleApp
 
         Material Material { get; }
 
-        double YetUnrequiredQuantity { get; set; }
+        double NotYetRequiredQuantity { get; set; }
     }
 }

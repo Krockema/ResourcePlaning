@@ -25,6 +25,8 @@ namespace CentralPlanningConsoleApp
 
         public int Time { get => time; }
 
+        public double NotYetSatisfiedQuantity { get; set; }
+
         private Material material;
 
         private double quantity;
