@@ -14,6 +14,8 @@ namespace CentralPlanningConsoleApp
             this.material = material;
             this.quantity = quantity;
             material.ProductionOrders.Add(this);
+            // TODO create operations from operations
+            // TODO create BOM positions from BOM positions
         }
 
         public Material Material { get => material; }

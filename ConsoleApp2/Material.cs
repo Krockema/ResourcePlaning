@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CentralPlanningConsoleApp
 {
+    public enum Disposition { ConsumptionDriven, DemandDriven }
+
+    public enum Production { Inhouse, External }
+
     class Material
     {
         public Material(string name)
@@ -30,6 +34,10 @@ namespace CentralPlanningConsoleApp
         public IList<ProductionOrder> ProductionOrders { get => productionOrders; }
 
         public IList<ProductionOrderBOMPosition> ProductionOrderBOMPositions { get => productionOrderBOMPositions; }
+
+        public Disposition Disposition { get; set; }
+
+        public Production Production { get; set; }
 
         private string name;
 

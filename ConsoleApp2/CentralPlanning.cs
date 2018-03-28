@@ -71,27 +71,27 @@ namespace CentralPlanningConsoleApp
             Resource turningLathe2 = new Resource("Turning Lathe 2", turningLathes);
             Resource turningLathe3 = new Resource("Turning Lathe 3", turningLathes);
 
-            Material table = new Material("Table");
+            Material table = new Material("Table") { Production = Production.Inhouse };
             materials.Add(table);
-            Material tableTop = new Material("Table Top");
+            Material tableTop = new Material("Table Top") { Production = Production.Inhouse };
             materials.Add(tableTop);
-            Material tableLeg = new Material("Table Leg");
+            Material tableLeg = new Material("Table Leg") { Production = Production.Inhouse };
             materials.Add(tableLeg);
-            Material chair = new Material("Chair");
+            Material chair = new Material("Chair") { Production = Production.Inhouse };
             materials.Add(chair);
-            Material chairSeat = new Material("Chair Seat");
+            Material chairSeat = new Material("Chair Seat") { Production = Production.Inhouse };
             materials.Add(chairSeat);
-            Material backRest = new Material("Back Rest");
+            Material backRest = new Material("Back Rest") { Production = Production.Inhouse };
             materials.Add(backRest);
-            Material chairLeg = new Material("Chair Leg");
+            Material chairLeg = new Material("Chair Leg") { Production = Production.Inhouse };
             materials.Add(chairLeg);
-            Material screw = new Material("Screw");
+            Material screw = new Material("Screw") { Production = Production.External };
             materials.Add(screw);
-            Material squareTimber = new Material("Square Timber");
+            Material squareTimber = new Material("Square Timber") { Production = Production.External };
             materials.Add(squareTimber);
-            Material roundTimber = new Material("Round Timber");
+            Material roundTimber = new Material("Round Timber") { Production = Production.External };
             materials.Add(roundTimber);
-            Material paint = new Material("Paint");
+            Material paint = new Material("Paint") { Production = Production.External };
             materials.Add(paint);
 
             
@@ -148,23 +148,54 @@ namespace CentralPlanningConsoleApp
             {
                 Requires requirement = requirements.First<Requires>();
                 requirements.RemoveAt(0); // TODO get and remove first in one operation/method?
-                foreach(Satisfies satisfier in satisfiers) {
-                    if (satisfier.Material.Equals(requirement.Material) && satisfier.NotYetRequiredQuantity > 0.0)
+                foreach(Satisfies satisfier in satisfiers)
+                {
+                    if (satisfier.Material.Equals(requirement.Material) && satisfier.NotYetRequiredQuantity > 0.0) // TODO equals by what? name?
                     {
+                        // TODO calculate the following rather than branch applying ifs
                         if (requirement.NotYetSatisfiedQuantity > satisfier.NotYetRequiredQuantity)
                         {
-
+                            new RequiredAndSatisfied(requirement, satisfier, satisfier.NotYetRequiredQuantity);
+                            requirement.NotYetSatisfiedQuantity -= satisfier.NotYetRequiredQuantity;
+                            satisfier.NotYetRequiredQuantity = 0.0;
+                            // TODO extract satisfier from satisfiers? no for each!
                         }
                         else if (requirement.NotYetSatisfiedQuantity < satisfier.NotYetRequiredQuantity)
                         {
-
+                            new RequiredAndSatisfied(requirement, satisfier, satisfier.NotYetRequiredQuantity);
+                            satisfier.NotYetRequiredQuantity -= requirement.NotYetSatisfiedQuantity;
+                            requirement.NotYetSatisfiedQuantity = 0.0;
+                            requirements.Remove(requirement);
                         }
                         else
                         {
+                            new RequiredAndSatisfied(requirement, satisfier, satisfier.NotYetRequiredQuantity);
+                            satisfier.NotYetRequiredQuantity = 0.0;
+                            requirement.NotYetSatisfiedQuantity = 0.0;
+                            requirements.Remove(requirement);
                         }
                     }
                 }
-
+                if (requirement.NotYetSatisfiedQuantity > 0.0)
+                {
+                    switch (requirement.Material.Production)
+                    {
+                        case Production.External:
+                            PurchaseOrderPosition purchaseOrderPosition = new PurchaseOrderPosition(requirement.Material, requirement.NotYetSatisfiedQuantity); // TODO lot-sizing at this point?
+                            new RequiredAndSatisfied(requirement, purchaseOrderPosition, purchaseOrderPosition.Quantity);
+                            // TODO schedule backwards
+                            break;
+                        case Production.Inhouse:
+                            ProductionOrder productionOrder = new ProductionOrder(requirement.Material, requirement.NotYetSatisfiedQuantity); // TODO lot-sizing at this point?
+                            new RequiredAndSatisfied(requirement, productionOrder, productionOrder.Quantity);
+                            // TODO schedule backwards
+                            break;
+                        default:
+                            throw new Exception("No such value of enum Production.");
+                    }
+                    requirement.NotYetSatisfiedQuantity = 0.0;
+                    requirements.Remove(requirement);
+                }
             }
             /*
             // version with no purchase order and no production order (breadth first):
