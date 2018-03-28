@@ -13,10 +13,12 @@ namespace CentralPlanningConsoleApp
         {
             this.productionOrder = productionOrder;
             this.bOMPosition = bOMPosition;
-            this.material = bOMPosition.Component;
+            material = bOMPosition.Component;
             productionOrder.ProductionOrderBOMPositions.Add(this);
             bOMPosition.ProductionOrderBOMPositions.Add(this);
             material.ProductionOrderBOMPositions.Add(this);
+            quantity = bOMPosition.Quantity * productionOrder.Quantity;
+            NotYetSatisfiedQuantity = quantity;
         }
 
         public ProductionOrder ProductionOrder { get => productionOrder; }

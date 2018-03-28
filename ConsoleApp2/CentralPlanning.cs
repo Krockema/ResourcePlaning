@@ -117,19 +117,19 @@ namespace CentralPlanningConsoleApp
             new BOMPosition(chairLeg) { Component = roundTimber, Quantity = 0.5 };
             
 
-            new Operation("Assemble Table", table, 2);
-            new Operation("Screw Tightly Table", table, 3);
-            new Operation("Paint Table", table, 4);
-            new Operation("Assemble BackRest", backRest, 2);
-            new Operation("Screw Tightly Back Rest", backRest, 2);
-            new Operation("Assemble Chair", chair, 2);
-            new Operation("Screw Tightly Chair", chair, 3);
-            new Operation("Paint Chair", chair, 4);
-            new Operation("Lathe Table Leg", tableLeg, 4);
-            new Operation("Lathe Chair Leg", chairLeg, 4);
-            new Operation("Saw Table Top", tableTop, 4);
-            new Operation("Saw Chair Seat", chairSeat, 4);
-            new Operation("Saw Backrest", backRest, 4);
+            new Operation("Assemble Table", table, 1, 2);
+            new Operation("Screw Tightly Table", table, 1, 3);
+            new Operation("Paint Table", table, 1, 4);
+            new Operation("Assemble BackRest", backRest, 1, 2);
+            new Operation("Screw Tightly Back Rest", backRest, 1, 2);
+            new Operation("Assemble Chair", chair, 1, 2);
+            new Operation("Screw Tightly Chair", chair, 1, 3);
+            new Operation("Paint Chair", chair, 1, 4);
+            new Operation("Lathe Table Leg", tableLeg, 1, 4);
+            new Operation("Lathe Chair Leg", chairLeg, 1, 4);
+            new Operation("Saw Table Top", tableTop, 1, 4);
+            new Operation("Saw Chair Seat", chairSeat, 1, 4);
+            new Operation("Saw Backrest", backRest, 1, 4);
 
             requirements.Add(new SalesOrderPosition(table, 10, 90));
             requirements.Add(new SalesOrderPosition(chair, 40, 90));

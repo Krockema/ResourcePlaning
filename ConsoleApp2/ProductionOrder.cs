@@ -13,9 +13,26 @@ namespace CentralPlanningConsoleApp
         {
             this.material = material;
             this.quantity = quantity;
+            NotYetRequiredQuantity = quantity;
             material.ProductionOrders.Add(this);
-            // TODO create operations from operations
-            // TODO create BOM positions from BOM positions
+            createProductionOrderOperations();
+            createProductionOrderBomPositions();
+        }
+
+        private void createProductionOrderBomPositions()
+        {
+            foreach (BOMPosition bOMPosition in material.BOMPositions)
+            {
+                new ProductionOrderBOMPosition(this, bOMPosition);
+            }
+        }
+
+        private void createProductionOrderOperations()
+        {
+            foreach (Operation operation in material.Operations)
+            {
+                new ProductionOrderOperation(this, operation);
+            }
         }
 
         public Material Material { get => material; }

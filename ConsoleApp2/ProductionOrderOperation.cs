@@ -17,6 +17,8 @@ namespace CentralPlanningConsoleApp
             productionOrder.ProductionOrderOperations.Add(this);
             operation.ProductionOrderOperations.Add(this);
             resourceGroup.ProductionOrderOperations.Add(this);
+            setUpDuration = operation.SetUpDuration;
+            processingDuration = operation.ProcessingDuration * productionOrder.Quantity;
         }
 
         public ProductionOrder ProductionOrder { get => productionOrder; }
@@ -25,11 +27,19 @@ namespace CentralPlanningConsoleApp
 
         internal Operation Operation { get => operation; }
 
+        public double SetUpDuration { get => setUpDuration; }
+
+        public double ProcessingDuration { get => processingDuration; set => processingDuration = value; }
+
         private ProductionOrder productionOrder;
 
         private ResourceGroup resourceGroup;
 
         private Operation operation;
+
+        private double setUpDuration;
+
+        private double processingDuration;
 
     }
 }
